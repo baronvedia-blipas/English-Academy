@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { grammarData } from '../content/grammarData';
 import { Search, Book, CheckCircle, ChevronRight, Menu, X, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '../components/UI/Breadcrumbs';
 
 export default function GrammarGuide() {
     const [activeTopicId, setActiveTopicId] = useState(grammarData[0].id);
@@ -150,13 +151,13 @@ export default function GrammarGuide() {
                     <div className="max-w-3xl mx-auto space-y-8 pb-12">
                         {/* Header */}
                         <header className="space-y-4">
-                            <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
-                                <Link to="/recursos" className="hover:text-white transition-colors">Recursos</Link>
-                                <ChevronRight className="w-4 h-4" />
-                                <span>Gramática</span>
-                                <ChevronRight className="w-4 h-4" />
-                                <span className="text-gray-400">{activeTopic.level}</span>
-                            </div>
+                            <Breadcrumbs 
+                                items={[
+                                    { label: 'Librería', href: '/recursos' },
+                                    { label: 'Gramática', href: '/gramatica' },
+                                    { label: activeTopic.level, href: null }
+                                ]}
+                            />
 
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-800 pb-6">
                                 <div>

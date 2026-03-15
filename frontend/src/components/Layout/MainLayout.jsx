@@ -1,7 +1,8 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { LogOut, Home, Map, User, BookOpen, Library, Shield, GraduationCap, ChevronRight, PenTool } from 'lucide-react';
+import { LogOut, Home, Map, User, BookOpen, Library, Shield, GraduationCap, ChevronRight, PenTool, Search } from 'lucide-react';
+import CommandPalette from './CommandPalette';
 
 export default function MainLayout() {
     const { user, profile, signOut } = useAuth();
@@ -35,6 +36,7 @@ export default function MainLayout() {
 
     return (
         <div className="flex h-screen bg-[#0F1117] text-slate-200 font-sans selection:bg-brand-green/30 selection:text-brand-green">
+            <CommandPalette />
             {/* Sidebar Desktop */}
             <aside className="hidden md:flex flex-col w-72 bg-[#13151A] border-r border-slate-800/60 shadow-2xl relative z-20">
 
@@ -59,9 +61,26 @@ export default function MainLayout() {
                 </div>
 
                 <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 custom-scrollbar">
-                    {/* Main Menu Segment */}
+                    {/* Quick Search Trigger */}
+                    <div className="mb-6 px-1">
+                        <button 
+                            className="w-full flex items-center justify-between gap-2 px-3 py-2.5 bg-dark border border-gray-800 rounded-xl text-gray-400 hover:text-white hover:border-gray-600 transition-colors"
+                            onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
+                        >
+                            <div className="flex items-center gap-2">
+                                <Search className="w-4 h-4" />
+                                <span className="text-sm">Búsqueda rápida...</span>
+                            </div>
+                            <div className="hidden md:flex items-center gap-1 text-[10px] bg-gray-800 px-1.5 py-0.5 rounded font-medium text-gray-500">
+                                <span>Ctrl</span>
+                                <span>K</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    {/* Study Route Segment */}
                     <div className="mb-6">
-                        <p className="px-3 text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Aprendizaje</p>
+                        <p className="px-3 text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Ruta de Estudio</p>
                         <ul className="space-y-1.5">
                             <li>
                                 <Link to="/dashboard" className={navLinkClass('/dashboard')}>
@@ -81,6 +100,13 @@ export default function MainLayout() {
                                     <span className="font-semibold text-sm">Mapa Aventura</span>
                                 </Link>
                             </li>
+                        </ul>
+                    </div>
+
+                    {/* Reference Library Segment */}
+                    <div className="mb-6">
+                        <p className="px-3 text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Librería de Consulta</p>
+                        <ul className="space-y-1.5">
                             <li>
                                 <Link to="/gramatica" className={navLinkClass('/gramatica')}>
                                     <ActiveIndicator active={isActive('/gramatica')} />

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getLessonById } from '../content/lessons';
 import { useProgress } from '../hooks/useProgress';
 import { X, Trophy, BookOpen } from 'lucide-react';
+import Breadcrumbs from '../components/UI/Breadcrumbs';
 
 // Exercises
 import Flashcard from '../components/exercises/Flashcard';
@@ -128,7 +129,14 @@ export default function Lesson() {
             <main className="flex-1 w-full max-w-4xl mx-auto p-4 md:p-8 flex flex-col items-center justify-center">
                 {showTheory && lesson.theory ? (
                     <div className="w-full max-w-2xl bg-dark-card border border-gray-800 rounded-2xl p-6 md:p-10 shadow-xl animate-fade-in">
-                        <div className="flex items-center gap-4 mb-6">
+                        <Breadcrumbs 
+                            items={[
+                                { label: 'Ruta Aventura', href: '/map' },
+                                { label: `Nivel ${lesson.level}`, href: null },
+                                { label: 'Teoría', href: null }
+                            ]}
+                        />
+                        <div className="flex items-center gap-4 mb-6 mt-2">
                             <div className="p-3 bg-brand-green/10 rounded-xl">
                                 <BookOpen className="w-8 h-8 text-brand-green" />
                             </div>

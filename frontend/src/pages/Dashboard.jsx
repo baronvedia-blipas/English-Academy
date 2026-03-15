@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
     const { user, profile } = useAuth();
-    const { score, streak, calculateCategoryProgress, completedLessons } = useProgress();
+    const { score, streak, calculateCategoryProgress, completedLessons, getNextLesson } = useProgress();
     const [showOnboarding, setShowOnboarding] = useState(false);
+    
+    const nextLesson = getNextLesson();
 
     useEffect(() => {
         if (profile && profile.total_score === 0 && profile.streak_days === 0 && (!completedLessons || completedLessons.length === 0)) {
@@ -83,16 +85,45 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Review Section */}
-            <section className="bg-gradient-to-r from-brand-green/10 to-transparent border border-gray-800 rounded-xl p-6 relative overflow-hidden">
-                <div className="relative z-10">
-                    <h3 className="text-xl font-bold text-white mb-2">¡Es hora de repasar!</h3>
-                    <p className="text-gray-300 mb-4 max-w-md">Tienes tarjetas programadas para revisión. El repaso espaciado es clave para la retención.</p>
-                    <Link to="/map" className="bg-brand-green hover:bg-emerald-500 text-white font-medium py-2 px-6 rounded-lg transition-colors inline-block mt-2">
-                        Ir a Flashcards
-                    </Link>
-                </div>
-            </section>
+            {/* Next Step / Continue Learning Hero Card */}
+            {nextLesson ? (
+                <section className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-6 md:p-8 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <div className="flex items-center gap-2 text-blue-400 font-bold mb-2 text-sm uppercase tracking-wider">
+                                <PlayCircle className="w-5 h-5" />
+                                Módulo Siguiente
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
+                                {nextLesson.title}
+                            </h3>
+                            <p className="text-slate-300 max-w-lg mb-1">
+                                Estás en el nivel <strong className="text-white capitalize">{nextLesson.level}</strong> - {nextLesson.groupTitle}.
+                            </p>
+                            <p className="text-slate-400 text-sm">
+                                Continúa justo donde te quedaste y alcanza tu meta diaria.
+                            </p>
+                        </div>
+                        <Link 
+                            to={`/lesson/${nextLesson.id}`} 
+                            className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 group-hover:scale-105 shrink-0"
+                        >
+                            Continuar Lección <ArrowRight className="w-5 h-5" />
+                        </Link>
+                    </div>
+                </section>
+            ) : (
+                <section className="bg-gradient-to-r from-brand-green/10 to-transparent border border-gray-800 rounded-xl p-6 relative overflow-hidden">
+                    <div className="relative z-10">
+                        <h3 className="text-xl font-bold text-white mb-2">¡Es hora de repasar!</h3>
+                        <p className="text-gray-300 mb-4 max-w-md">Tienes tarjetas programadas para revisión. El repaso espaciado es clave para la retención.</p>
+                        <Link to="/map" className="bg-brand-green hover:bg-emerald-500 text-white font-medium py-2 px-6 rounded-lg transition-colors inline-block mt-2">
+                            Ir a Flashcards
+                        </Link>
+                    </div>
+                </section>
+            )}
 
             {/* Levels Progress */}
             <section>

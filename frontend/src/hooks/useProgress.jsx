@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './useAuth';
 import { supabase } from '../lib/supabase';
+import { lessonsData } from '../content/lessons';
 
 const ProgressContext = createContext({});
 
@@ -76,6 +77,18 @@ export const ProgressProvider = ({ children }) => {
         return Math.round((completedCount / categoryData.lessons.length) * 100);
     };
 
+    // Determine the next lesson the user should take
+    const getNextLesson = () => {
+        for (const group of Object.values(lessonsData)) {
+            for (const lesson of group.lessons) {
+                if (!completedLessons.includes(lesson.id)) {
+                    return { ...lesson, groupTitle: group.title };
+                }
+            }
+        }
+        return null; // All lessons completed!
+    };
+
     return (
         <ProgressContext.Provider value={{
             completedLessons,
@@ -83,7 +96,8 @@ export const ProgressProvider = ({ children }) => {
             streak,
             markLessonCompleted,
             isLessonCompleted,
-            calculateCategoryProgress
+            calculateCategoryProgress,
+            getNextLesson
         }}>
             {children}
         </ProgressContext.Provider>
