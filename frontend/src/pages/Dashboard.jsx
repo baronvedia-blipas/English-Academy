@@ -4,10 +4,12 @@ import { useProgress } from '../hooks/useProgress';
 import { lessonsData } from '../content/lessons';
 import { Flame, Star, Zap, BookOpen, ChevronRight, Sparkles, PlayCircle, ArrowRight, BrainCircuit, CheckCircle2, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ActivityChart from '../components/Dashboard/ActivityChart';
+import SkillRadar from '../components/Dashboard/SkillRadar';
 
 export default function Dashboard() {
     const { user, profile } = useAuth();
-    const { score, streak, calculateCategoryProgress, completedLessons, getNextLesson, lastDailyChallengeDate } = useProgress();
+    const { score, streak, calculateCategoryProgress, completedLessons, getNextLesson, lastDailyChallengeDate, weeklyActivity } = useProgress();
     const [showOnboarding, setShowOnboarding] = useState(false);
     
     const nextLesson = getNextLesson();
@@ -32,6 +34,12 @@ export default function Dashboard() {
         { title: 'Avanzado', description: 'C1', progress: calculateCategoryProgress(lessonsData, 'l3'), color: 'bg-brand-red', path: '/map#advanced' },
         { title: 'Nativo / Slang', description: 'Práctico', progress: calculateCategoryProgress(lessonsData, 'l4'), color: 'bg-purple-500', path: '/map#native' }
     ];
+
+    const radarData = categories.map(cat => ({
+        subject: cat.title,
+        A: cat.progress,
+        fullMark: 100
+    }));
 
     return (
         <div className="space-y-8 animate-fade-in">
@@ -197,6 +205,12 @@ export default function Dashboard() {
                         </Link>
                     ))}
                 </div>
+            </section>
+
+            {/* Analytics Panel */}
+            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4 pb-8">
+                <ActivityChart data={weeklyActivity || []} />
+                <SkillRadar data={radarData} />
             </section>
 
             {/* Onboarding Welcome Modal for New Users */}
