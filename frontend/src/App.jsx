@@ -23,6 +23,7 @@ import CommunityResources from './pages/CommunityResources';
 import AdminDashboard from './pages/AdminDashboard';
 import GrammarGuide from './pages/GrammarGuide';
 import ParagraphGuide from './pages/ParagraphGuide';
+import DailyChallenge from './pages/DailyChallenge';
 
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
@@ -67,6 +68,7 @@ function App() {
               <Route path="parrafos" element={<ParagraphGuide />} />
               <Route path="recursos" element={<Resources />} />
               <Route path="recursos-comunidad" element={<CommunityResources />} />
+              <Route path="reto-diario" element={<DailyChallenge />} />
               <Route path="admin" element={<AdminDashboard />} />
             </Route>
 

@@ -5,7 +5,7 @@ import { Users, Shield, Award, Flame, AlertCircle, Loader } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 
 export default function AdminDashboard() {
-    const { user, profile, loading: authLoading } = useAuth();
+    const { profile, loading: authLoading } = useAuth();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

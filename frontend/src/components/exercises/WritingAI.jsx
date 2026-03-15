@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CheckSquare, AlertCircle, SpellCheck, CheckCircle2 } from 'lucide-react';
 
-export default function WritingAI({ prompt, level, onComplete }) {
+export default function WritingAI({ prompt, onComplete }) {
     const [text, setText] = useState('');
     const [feedback, setFeedback] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ export default function WritingAI({ prompt, level, onComplete }) {
                 matches: data.matches || [],
                 score: score
             });
-        } catch (err) {
+        } catch {
             setError("No pudimos revisar la gramática, pero puedes avanzar de todas formas.");
             setFeedback({ matches: [], score: 10, isFallback: true });
         } finally {

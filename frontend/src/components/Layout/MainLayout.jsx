@@ -4,34 +4,34 @@ import { useAuth } from '../../hooks/useAuth';
 import { LogOut, Home, Map, User, BookOpen, Library, Shield, GraduationCap, ChevronRight, PenTool, Search } from 'lucide-react';
 import CommandPalette from './CommandPalette';
 
+const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+    if (!active) return null;
+    return (
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+            <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+        </div>
+    );
+};
+
+const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+    if (!active) return null;
+    return (
+        <span className="absolute right-3 top-1/2 -translate-y-1/2 flex h-2 w-2">
+            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colorClass} opacity-75`}></span>
+            <span className={`relative inline-flex rounded-full h-2 w-2 ${colorClass}`}></span>
+        </span>
+    );
+};
+
 export default function MainLayout() {
     const { user, profile, signOut } = useAuth();
     const location = useLocation();
 
     const isActive = (path) => location.pathname.startsWith(path);
 
-    const navLinkClass = (path, accentColor = 'bg-brand-green') => {
+    const navLinkClass = (path) => {
         const active = isActive(path);
         return `group relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${active ? 'bg-white/5 text-white shadow-sm ring-1 ring-white/10' : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'}`;
-    };
-
-    const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
-        if (!active) return null;
-        return (
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
-                <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
-            </div>
-        );
-    };
-
-    const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
-        if (!active) return null;
-        return (
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colorClass} opacity-75`}></span>
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${colorClass}`}></span>
-            </span>
-        );
     };
 
     return (

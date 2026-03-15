@@ -68,7 +68,7 @@ export default function LevelMap() {
                 })
             };
         });
-    }, [isLessonCompleted, profile]);
+    }, [isLessonCompleted, profile, basePath]);
 
     const catToId = { 'básico': 'basic', 'intermedio': 'intermediate', 'avanzado': 'advanced', 'nativo': 'native' };
 
@@ -100,7 +100,7 @@ export default function LevelMap() {
                 <div className="absolute left-[2.25rem] md:left-1/2 top-4 bottom-4 w-1 bg-gray-800 rounded-full -translate-x-1/2 z-0"></div>
 
                 <div className="space-y-16">
-                    {path.map((level, lIndex) => (
+                    {path.map((level) => (
                         <div key={level.id} className="relative z-10" id={catToId[level.category] || 'basic'}>
                             <div className="bg-dark-lighter py-2 px-4 rounded-xl border border-gray-800 inline-block mb-8 relative md:left-1/2 md:-translate-x-1/2 left-[2.25rem] -translate-x-4 shadow-lg">
                                 <h3 className="font-bold text-lg text-white">{level.title}</h3>

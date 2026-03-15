@@ -93,6 +93,11 @@ export default function CommandPalette() {
     }, [query, allData]);
 
     // Handle Result Navigation
+    const handleSelect = (route) => {
+        navigate(route);
+        setIsOpen(false);
+    };
+
     useEffect(() => {
         const handleNavigation = (e) => {
             if (!isOpen) return;
@@ -113,11 +118,6 @@ export default function CommandPalette() {
         document.addEventListener('keydown', handleNavigation);
         return () => document.removeEventListener('keydown', handleNavigation);
     }, [isOpen, results, selectedIndex]);
-
-    const handleSelect = (route) => {
-        navigate(route);
-        setIsOpen(false);
-    };
 
     if (!isOpen) return null;
 

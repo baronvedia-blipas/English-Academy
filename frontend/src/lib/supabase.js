@@ -17,7 +17,7 @@ if (!supabaseUrl || !supabaseAnonKey || supabaseUrl.includes('tu-proyecto')) {
         authStateListener = callback;
         return { data: { subscription: { unsubscribe: () => { authStateListener = null; } } } };
       },
-      signUp: async ({ email, password, options }) => {
+      signUp: async ({ email, options }) => {
         currentUser = { email, user_metadata: { username: options?.data?.username || 'Invitado' } };
         if (authStateListener) authStateListener('SIGNED_IN', { user: currentUser });
         return { data: { user: currentUser }, error: null };

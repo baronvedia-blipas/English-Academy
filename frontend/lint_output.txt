@@ -1,0 +1,512 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+C:\AntigravityProjects\English-Academy\frontend\src\components\Layout\CommandPalette.jsx
+  109:21  error    Error: Cannot access variable before it is declared
+
+`handleSelect` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  107 |                 e.preventDefault();
+  108 |                 if (results[selectedIndex]) {
+> 109 |                     handleSelect(results[selectedIndex].route);
+      |                     ^^^^^^^^^^^^ `handleSelect` accessed before it is declared
+  110 |                 }
+  111 |             }
+  112 |         };
+
+  115 |     }, [isOpen, results, selectedIndex]);
+  116 |
+> 117 |     const handleSelect = (route) => {
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 118 |         navigate(route);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^
+> 119 |         setIsOpen(false);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^
+> 120 |     };
+      | ^^^^^^^ `handleSelect` is declared here
+  121 |
+  122 |     if (!isOpen) return null;
+  123 |  react-hooks/immutability
+  115:8   warning  React Hook useEffect has a missing dependency: 'handleSelect'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  react-hooks/exhaustive-deps
+
+C:\AntigravityProjects\English-Academy\frontend\src\components\Layout\MainLayout.jsx
+   13:33  error  'accentColor' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         no-unused-vars
+   87:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  85 |                             <li>
+  86 |                                 <Link to="/dashboard" className={navLinkClass('/dashboard')}>
+> 87 |                                     <ActiveIndicator active={isActive('/dashboard')} />
+     |                                      ^^^^^^^^^^^^^^^ This component is created during render
+  88 |                                     <div className={`p-1.5 rounded-lg transition-colors ${isActive('/dashboard') ? 'bg-brand-green/20 text-brand-green' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  89 |                                         <Home className="w-4 h-4" />
+  90 |                                     </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;                                                             react-hooks/static-components
+   96:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  94 |                             <li>
+  95 |                                 <Link to="/map" className={navLinkClass('/map')}>
+> 96 |                                     <ActiveIndicator active={isActive('/map')} />
+     |                                      ^^^^^^^^^^^^^^^ This component is created during render
+  97 |                                     <div className={`p-1.5 rounded-lg transition-colors ${isActive('/map') ? 'bg-blue-500/20 text-blue-400' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  98 |                                         <Map className="w-4 h-4" />
+  99 |                                     </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;                                                                                            react-hooks/static-components
+  112:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  110 |                             <li>
+  111 |                                 <Link to="/gramatica" className={navLinkClass('/gramatica')}>
+> 112 |                                     <ActiveIndicator active={isActive('/gramatica')} />
+      |                                      ^^^^^^^^^^^^^^^ This component is created during render
+  113 |                                     <div className={`p-1.5 rounded-lg transition-colors ${isActive('/gramatica') ? 'bg-purple-500/20 text-purple-400' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  114 |                                         <GraduationCap className="w-4 h-4" />
+  115 |                                     </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;                                               react-hooks/static-components
+  117:65  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  115 |                                     </div>
+  116 |                                     <span className="font-semibold text-sm">Gramática</span>
+> 117 |                                     {isActive('/gramatica') && <PingDot active={true} colorClass="bg-purple-500" />}
+      |                                                                 ^^^^^^^ This component is created during render
+  118 |                                 </Link>
+  119 |                             </li>
+  120 |                             <li>
+
+  25 |     };
+  26 |
+> 27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 30 |             <span className="absolute right-3 top-1/2 -translate-y-1/2 flex h-2 w-2">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 31 |                 <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colorClass} opacity-75`}></span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 32 |                 <span className={`relative inline-flex rounded-full h-2 w-2 ${colorClass}`}></span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 33 |             </span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 34 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 35 |     };
+     | ^^^^^^ The component is created during render here
+  36 |
+  37 |     return (
+  38 |         <div className="flex h-screen bg-[#0F1117] text-slate-200 font-sans selection:bg-brand-green/30 selection:text-brand-green">                                                                                                     react-hooks/static-components
+  122:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  120 |                             <li>
+  121 |                                 <Link to="/parrafos" className={navLinkClass('/parrafos')}>
+> 122 |                                     <ActiveIndicator active={isActive('/parrafos')} colorClass="bg-indigo-500" />
+      |                                      ^^^^^^^^^^^^^^^ This component is created during render
+  123 |                                     <div className={`p-1.5 rounded-lg transition-colors ${isActive('/parrafos') ? 'bg-indigo-500/20 text-indigo-400' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  124 |                                         <PenTool className="w-4 h-4" />
+  125 |                                     </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;                              react-hooks/static-components
+  127:64  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  125 |                                     </div>
+  126 |                                     <span className="font-semibold text-sm">Párrafos</span>
+> 127 |                                     {isActive('/parrafos') && <PingDot active={true} colorClass="bg-indigo-500" />}
+      |                                                                ^^^^^^^ This component is created during render
+  128 |                                 </Link>
+  129 |                             </li>
+  130 |                             <li>
+
+  25 |     };
+  26 |
+> 27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 30 |             <span className="absolute right-3 top-1/2 -translate-y-1/2 flex h-2 w-2">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 31 |                 <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colorClass} opacity-75`}></span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 32 |                 <span className={`relative inline-flex rounded-full h-2 w-2 ${colorClass}`}></span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 33 |             </span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 34 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 35 |     };
+     | ^^^^^^ The component is created during render here
+  36 |
+  37 |     return (
+  38 |         <div className="flex h-screen bg-[#0F1117] text-slate-200 font-sans selection:bg-brand-green/30 selection:text-brand-green">                                                                                                        react-hooks/static-components
+  132:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  130 |                             <li>
+  131 |                                 <Link to="/recursos" className={navLinkClass('/recursos')}>
+> 132 |                                     <ActiveIndicator active={isActive('/recursos')} colorClass="bg-brand-yellow" />
+      |                                      ^^^^^^^^^^^^^^^ This component is created during render
+  133 |                                     <div className={`p-1.5 rounded-lg transition-colors ${isActive('/recursos') ? 'bg-brand-yellow/20 text-brand-yellow' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  134 |                                         <Library className="w-4 h-4" />
+  135 |                                     </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;                        react-hooks/static-components
+  137:64  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  135 |                                     </div>
+  136 |                                     <span className="font-semibold text-sm">Recursos Extras</span>
+> 137 |                                     {isActive('/recursos') && <PingDot active={true} colorClass="bg-brand-yellow" />}
+      |                                                                ^^^^^^^ This component is created during render
+  138 |                                 </Link>
+  139 |                             </li>
+  140 |                         </ul>
+
+  25 |     };
+  26 |
+> 27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 30 |             <span className="absolute right-3 top-1/2 -translate-y-1/2 flex h-2 w-2">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 31 |                 <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colorClass} opacity-75`}></span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 32 |                 <span className={`relative inline-flex rounded-full h-2 w-2 ${colorClass}`}></span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 33 |             </span>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 34 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 35 |     };
+     | ^^^^^^ The component is created during render here
+  36 |
+  37 |     return (
+  38 |         <div className="flex h-screen bg-[#0F1117] text-slate-200 font-sans selection:bg-brand-green/30 selection:text-brand-green">                                                                                                  react-hooks/static-components
+  154:42  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  152 |                                 <li>
+  153 |                                     <Link to="/admin" className={navLinkClass('/admin', 'bg-brand-red')}>
+> 154 |                                         <ActiveIndicator active={isActive('/admin')} colorClass="bg-brand-red" />
+      |                                          ^^^^^^^^^^^^^^^ This component is created during render
+  155 |                                         <div className={`p-1.5 rounded-lg transition-colors ${isActive('/admin') ? 'bg-brand-red/20 text-brand-red' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  156 |                                             <Shield className="w-4 h-4" />
+  157 |                                         </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;  react-hooks/static-components
+  168:26  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  166 |                 <div className="mt-auto pt-4 pb-6 px-4 border-t border-slate-800/60 bg-[#13151A]">
+  167 |                     <Link to="/profile" className={navLinkClass('/profile')}>
+> 168 |                         <ActiveIndicator active={isActive('/profile')} />
+      |                          ^^^^^^^^^^^^^^^ This component is created during render
+  169 |                         <div className={`p-1.5 rounded-lg transition-colors ${isActive('/profile') ? 'bg-slate-500/20 text-slate-300' : 'bg-slate-800/50 text-slate-400 group-hover:bg-slate-700/50 group-hover:text-white'}`}>
+  170 |                             <User className="w-4 h-4" />
+  171 |                         </div>
+
+  16 |     };
+  17 |
+> 18 |     const ActiveIndicator = ({ active, colorClass = 'bg-brand-green' }) => {
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 19 |         if (!active) return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         return (
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-md overflow-hidden flex items-center justify-center">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 22 |                 <div className={`w-full h-full ${colorClass} shadow-[0_0_10px_rgba(34,197,94,0.5)]`}></div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |             </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |         );
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     };
+     | ^^^^^^ The component is created during render here
+  26 |
+  27 |     const PingDot = ({ active, colorClass = 'bg-brand-green' }) => {
+  28 |         if (!active) return null;                                                                        react-hooks/static-components
+
+C:\AntigravityProjects\English-Academy\frontend\src\components\exercises\WordOrder.jsx
+  13:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  11 |         const words = sentence.split(' ');
+  12 |         const shuffled = [...words].sort(() => Math.random() - 0.5).map((word, i) => ({ id: i, text: word }));
+> 13 |         setAvailableWords(shuffled);
+     |         ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  14 |         setSelectedWords([]);
+  15 |         setChecked(false);
+  16 |     }, [sentence]);  react-hooks/set-state-in-effect
+
+C:\AntigravityProjects\English-Academy\frontend\src\components\exercises\WritingAI.jsx
+   4:45  error  'level' is defined but never used  no-unused-vars
+  46:18  error  'err' is defined but never used    no-unused-vars
+
+C:\AntigravityProjects\English-Academy\frontend\src\hooks\useAuth.jsx
+  89:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\AntigravityProjects\English-Academy\frontend\src\hooks\useProgress.jsx
+  107:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\AntigravityProjects\English-Academy\frontend\src\lib\supabase.js
+  20:31  error  'password' is defined but never used  no-unused-vars
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\AdminDashboard.jsx
+  8:13  error  'user' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\Dashboard.jsx
+  17:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  15 |     useEffect(() => {
+  16 |         if (profile && profile.total_score === 0 && profile.streak_days === 0 && (!completedLessons || completedLessons.length === 0)) {
+> 17 |             setShowOnboarding(true);
+     |             ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |         }
+  19 |     }, [profile, completedLessons]);
+  20 |  react-hooks/set-state-in-effect
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\GrammarGuide.jsx
+  22:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  20 |         const savedProgress = localStorage.getItem('grammar_progress');
+  21 |         if (savedProgress) {
+> 22 |             setProgress(JSON.parse(savedProgress));
+     |             ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |         }
+  24 |     }, []);
+  25 |                                                    react-hooks/set-state-in-effect
+  59:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  57 |     // Reset exercise when switching topics
+  58 |     useEffect(() => {
+> 59 |         setExerciseAnswer('');
+     |         ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  60 |         setExerciseStatus(null);
+  61 |         setMobileMenuOpen(false); // close mobile menu on selection
+  62 |     }, [activeTopicId]);  react-hooks/set-state-in-effect
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\Lesson.jsx
+  33:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  31 |             return;
+  32 |         }
+> 33 |         setLesson(data);
+     |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  34 |         setCurrentIndex(0);
+  35 |         setCompleted(false);
+  36 |         setScore(0);  react-hooks/set-state-in-effect
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\LevelMap.jsx
+   71:8   warning  React Hook useMemo has a missing dependency: 'basePath'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  103:39  error    'lIndex' is defined but never used                                                                         no-unused-vars
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\ParagraphGuide.jsx
+  25:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  23 |         const savedProgress = localStorage.getItem('paragraph_progress');
+  24 |         if (savedProgress) {
+> 25 |             setProgress(JSON.parse(savedProgress));
+     |             ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  26 |         }
+  27 |     }, []);
+  28 |                                                              react-hooks/set-state-in-effect
+  59:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  57 |     // Reset exercise when switching topics
+  58 |     useEffect(() => {
+> 59 |         setExerciseAnswer(null);
+     |         ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  60 |         setExerciseStatus(null);
+  61 |         setShowTranslation(false);
+  62 |         setMobileMenuOpen(false); // close mobile menu on selection  react-hooks/set-state-in-effect
+
+C:\AntigravityProjects\English-Academy\frontend\src\pages\ResetPassword.jsx
+  1:27  error  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+✖ 29 problems (27 errors, 2 warnings)
+

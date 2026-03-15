@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './useAuth';
 import { supabase } from '../lib/supabase';
@@ -10,6 +11,7 @@ export const ProgressProvider = ({ children }) => {
     const [completedLessons, setCompletedLessons] = useState([]);
     const [score, setScore] = useState(0);
     const [streak, setStreak] = useState(0);
+    const [lastDailyChallengeDate, setLastDailyChallengeDate] = useState(null);
 
     // Sync state with the fetched profile
     useEffect(() => {
@@ -22,8 +24,52 @@ export const ProgressProvider = ({ children }) => {
             setCompletedLessons([]);
             setScore(0);
             setStreak(0);
+            setLastDailyChallengeDate(null);
         }
     }, [profile]);
+
+    // Load local daily challenge status
+    useEffect(() => {
+        if (user) {
+            const savedDate = localStorage.getItem(`daily_challenge_${user.id}`);
+            if (savedDate) setLastDailyChallengeDate(savedDate);
+        }
+    }, [user]);
+
+    const markDailyChallengeCompleted = async () => {
+        const today = new Date().toISOString().split('T')[0];
+        setLastDailyChallengeDate(today);
+        if (user) {
+            localStorage.setItem(`daily_challenge_${user.id}`, today);
+            
+            // Add 50 bonus points
+            const nextScore = score + 50;
+            setScore(nextScore);
+            try {
+                await supabase.from('profiles').update({ total_score: nextScore }).eq('id', user.id);
+            } catch (err) {
+                console.error("Error saving daily score", err);
+            }
+        }
+    };
+
+    const generateDailyChallenge = () => {
+        if (!completedLessons || completedLessons.length === 0) return [];
+        
+        let availableExercises = [];
+        Object.values(lessonsData).forEach(group => {
+            group.lessons.forEach(lesson => {
+                if (completedLessons.includes(lesson.id) && lesson.exercises) {
+                    availableExercises = [...availableExercises, ...lesson.exercises];
+                }
+            });
+        });
+
+        if (availableExercises.length === 0) return [];
+        // Shuffle and pick 5
+        const shuffled = availableExercises.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, 5);
+    };
 
     const markLessonCompleted = async (lessonId, earnedScore) => {
         if (!user || !profile || completedLessons.includes(lessonId)) return;
@@ -97,7 +143,10 @@ export const ProgressProvider = ({ children }) => {
             markLessonCompleted,
             isLessonCompleted,
             calculateCategoryProgress,
-            getNextLesson
+            getNextLesson,
+            lastDailyChallengeDate,
+            markDailyChallengeCompleted,
+            generateDailyChallenge
         }}>
             {children}
         </ProgressContext.Provider>

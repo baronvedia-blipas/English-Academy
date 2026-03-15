@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useProgress } from '../hooks/useProgress';
 import { lessonsData } from '../content/lessons';
-import { Flame, Star, Zap, BookOpen, ChevronRight, Sparkles, PlayCircle, ArrowRight } from 'lucide-react';
+import { Flame, Star, Zap, BookOpen, ChevronRight, Sparkles, PlayCircle, ArrowRight, BrainCircuit, CheckCircle2, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
     const { user, profile } = useAuth();
-    const { score, streak, calculateCategoryProgress, completedLessons, getNextLesson } = useProgress();
+    const { score, streak, calculateCategoryProgress, completedLessons, getNextLesson, lastDailyChallengeDate } = useProgress();
     const [showOnboarding, setShowOnboarding] = useState(false);
     
     const nextLesson = getNextLesson();
+    const today = new Date().toISOString().split('T')[0];
+    const isDailyCompleted = lastDailyChallengeDate === today;
 
     useEffect(() => {
         if (profile && profile.total_score === 0 && profile.streak_days === 0 && (!completedLessons || completedLessons.length === 0)) {
@@ -124,6 +126,52 @@ export default function Dashboard() {
                     </div>
                 </section>
             )}
+
+            {/* Daily Challenge Card */}
+            <section className={`border rounded-2xl p-6 relative overflow-hidden flex items-center justify-between gap-6 transition-all ${
+                completedLessons.length === 0 
+                ? 'bg-dark-card border-gray-800 opacity-70' 
+                : isDailyCompleted 
+                    ? 'bg-brand-green/10 border-brand-green/30' 
+                    : 'bg-[#13151A] border-brand-green/50 hover:border-brand-green shadow-[0_0_15px_rgba(34,197,94,0.1)]'
+            }`}>
+                {/* Background Decoration */}
+                {!isDailyCompleted && completedLessons.length > 0 && (
+                    <div className="absolute right-0 top-0 w-40 h-40 bg-brand-green/5 blur-3xl rounded-full pointer-events-none"></div>
+                )}
+                <div className="flex items-center gap-5 z-10 w-full sm:w-auto">
+                    <div className={`p-4 rounded-xl shrink-0 ${
+                        completedLessons.length === 0 ? 'bg-gray-800' : isDailyCompleted ? 'bg-brand-green/20' : 'bg-brand-green/20'
+                    }`}>
+                        {completedLessons.length === 0 
+                            ? <Lock className="w-8 h-8 text-gray-500" /> 
+                            : isDailyCompleted 
+                                ? <CheckCircle2 className="w-8 h-8 text-brand-green" /> 
+                                : <BrainCircuit className="w-8 h-8 text-brand-green animate-pulse" />}
+                    </div>
+                    <div>
+                        <h3 className="text-xl font-bold text-white mb-1">Reto Diario</h3>
+                        <p className={`text-sm ${completedLessons.length === 0 ? 'text-gray-500' : isDailyCompleted ? 'text-brand-green' : 'text-slate-400'}`}>
+                            {completedLessons.length === 0 
+                                ? 'Completa lecciones del Mapa para desbloquear tu reto diario.' 
+                                : isDailyCompleted 
+                                    ? '¡Reto completado! Excelente trabajo. Vuelve mañana para más.' 
+                                    : 'Repasa lo aprendido y obtén +50 XP extras hoy mismo.'}
+                        </p>
+                    </div>
+                </div>
+                <div className="z-10 shrink-0 hidden sm:block">
+                    {completedLessons.length > 0 && !isDailyCompleted && (
+                        <Link to="/reto-diario" className="px-6 py-3 bg-brand-green hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-brand-green/20 whitespace-nowrap">
+                            Empezar Reto
+                        </Link>
+                    )}
+                </div>
+                {/* Visible link for mobile */}
+                {completedLessons.length > 0 && !isDailyCompleted && (
+                    <Link to="/reto-diario" className="sm:hidden absolute inset-0 z-0"></Link>
+                )}
+            </section>
 
             {/* Levels Progress */}
             <section>
